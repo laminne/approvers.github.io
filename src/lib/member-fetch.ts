@@ -1,8 +1,3 @@
-import { promises } from "fs";
-const { readFile } = promises;
-import YAML from "yaml";
-import path from "path";
-
 export type SNSLinkInfo = { type: "twitter"; url: string } | { type: "github"; url: string };
 
 const validateSNSLink = (obj: unknown): obj is SNSLinkInfo => {
@@ -64,11 +59,11 @@ const validateMember = (obj: unknown): obj is Member => {
 const validateMembers = (obj: unknown): obj is Member[] =>
   typeof obj === "object" && obj != null && (Object.values(obj) as unknown[]).every(validateMember);
 
-const membersFile = path.join(process.cwd(), "data/members/list.yaml");
+const membersUrl = "https://db.siketyan.approvers.dev/";
 
 export async function getMembers(): Promise<Member[]> {
-  const file = await readFile(membersFile);
-  const parsed = YAML.parse(file.toString());
+  const file = await fetch(membersUrl);
+  const parsed = await file.json();
   if (!validateMembers(parsed)) {
     throw "invalid list format";
   }
