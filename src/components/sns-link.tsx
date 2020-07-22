@@ -14,9 +14,6 @@ const icons: Record<Contact, Icon> = {
   github: {
     icon: faGithub,
   },
-  discord: {
-    icon: faDiscord,
-  },
 };
 
 export const SNSLink: FC<{ type: Contact; url: string }> = ({ type, url }) => {

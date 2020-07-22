@@ -1,6 +1,6 @@
 import z from "zod";
 
-export type Contact = "twitter" | "github" | "discord";
+export type Contact = "twitter" | "github";
 
 const ContactsSchema = z.union([
   z.object({
@@ -8,9 +8,6 @@ const ContactsSchema = z.union([
   }),
   z.object({
     github: z.number().optional(),
-  }),
-  z.object({
-    discord: z.number().optional(),
   }),
 ]);
 
