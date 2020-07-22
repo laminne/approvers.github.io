@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Contact } from "../lib/member-fetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faGithub, faDiscord, IconDefinition } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter, faGithub, IconDefinition } from "@fortawesome/free-brands-svg-icons";
 import { ExternalLink } from "./externalLink";
 import styles from "../sass/pages/member.module.sass";
 
