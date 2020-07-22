@@ -1,23 +1,17 @@
 import z from "zod";
 
-const SNSLinkInfoSchema = z.union([
-  z.object({
-    type: z.literal("twitter"),
-    url: z.string(),
-  }),
-  z.object({
-    type: z.literal("github"),
-    url: z.string(),
-  }),
-]);
+const ContactSchema = z.object({
+  twitter: z.number().optional(),
+  github: z.number().optional(),
+  discord: z.number().optional(),
+});
 
-export type SNSLinkInfo = z.infer<typeof SNSLinkInfoSchema>;
+export type Contact = z.infer<typeof ContactSchema>;
 
 const MemberSchema = z.object({
-  avatar: z.string(),
+  id: z.string(),
   name: z.string(),
-  role: z.string(),
-  links: z.array(SNSLinkInfoSchema),
+  contacts: ContactSchema,
 });
 
 export type Member = z.infer<typeof MemberSchema>;
