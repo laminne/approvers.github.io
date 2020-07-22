@@ -1,17 +1,25 @@
 import z from "zod";
 
-const ContactSchema = z.object({
-  twitter: z.number().optional(),
-  github: z.number().optional(),
-  discord: z.number().optional(),
-});
+export type Contact = "twitter" | "github" | "discord";
 
-export type Contact = z.infer<typeof ContactSchema>;
+const ContactsSchema = z.union([
+  z.object({
+    twitter: z.number().optional(),
+  }),
+  z.object({
+    github: z.number().optional(),
+  }),
+  z.object({
+    discord: z.number().optional(),
+  }),
+]);
+
+export type Contacts = z.infer<typeof ContactsSchema>;
 
 const MemberSchema = z.object({
   id: z.string(),
   name: z.string(),
-  contacts: ContactSchema,
+  contacts: z.record(ContactsSchema),
 });
 
 export type Member = z.infer<typeof MemberSchema>;
@@ -26,6 +34,7 @@ const membersUrl = "https://db.siketyan.approvers.dev/";
 export async function getMembers(): Promise<Member[]> {
   const file = await fetch(membersUrl);
   const parsed = await file.json();
+  console.log(parsed);
   if (!validateMembers(parsed)) {
     throw "invalid list format";
   }
